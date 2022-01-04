@@ -129,6 +129,7 @@
         /// <returns>This <see cref="InputBuilder"/> instance.</returns>
         public InputBuilder AddKeyUp(VirtualKeyCode keyCode)
         {
+            var code = (ushort)((int)keyCode & 0xFFFF);
             var up =
                 new Input
                 {
@@ -138,8 +139,8 @@
                                 Keyboard =
                                     new KeyboardInput
                                         {
-                                            KeyCode = (ushort) keyCode,
-                                            Scan = (ushort)(NativeMethods.MapVirtualKey((uint)keyCode, 0) & 0xFFU),
+                                            KeyCode = (ushort) code,
+                                            Scan = (ushort)(NativeMethods.MapVirtualKey((uint)code, 0) & 0xFFU),
                                             Flags = (uint) (IsExtendedKey(keyCode)
                                                                   ? KeyboardFlag.KeyUp | KeyboardFlag.ExtendedKey
                                                                   : KeyboardFlag.KeyUp),
