@@ -16,7 +16,7 @@ pr:
       - release/*
 
 pool:
-  vmImage: 'windows-latest'
+  vmImage: 'windows-2019'
 
 variables:
   Solution: '**/*.sln'
@@ -25,12 +25,14 @@ variables:
   DOTNET_SKIP_FIRST_TIME_EXPERIENCE: 'true'
 
 steps:
-- task: DotNetCoreInstaller@0
+- task: UseDotNet@2
+  displayName: 'Use .NET Core sdk'
   inputs:
-    version: '2.2.401'
+    packageType: 'sdk'
+    version: '3.x'
 
 - script: |
-    dotnet tool install -g GitVersion.Tool --version 5.0.2-beta1.37
+    dotnet tool install -g GitVersion.Tool --version 5.10.1
   displayName: 'Install global tools'
 
 - script: dotnet-gitversion /output buildserver
