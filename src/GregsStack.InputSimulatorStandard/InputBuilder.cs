@@ -274,8 +274,8 @@
         {
             var movement = new Input { Type = (uint)InputType.Mouse };
             movement.Data.Mouse.Flags = (uint)(MouseFlag.Move | MouseFlag.Absolute);
-            movement.Data.Mouse.X = absoluteX;
-            movement.Data.Mouse.Y = absoluteY;
+            movement.Data.Mouse.X = (int)((absoluteX * 65536) / NativeMethods.GetSystemMetrics((uint)SystemMetric.SM_CXSCREEN));
+            movement.Data.Mouse.Y = (int)((absoluteY * 65536) / NativeMethods.GetSystemMetrics((uint)SystemMetric.SM_CYSCREEN));
 
             this.inputList.Add(movement);
 
